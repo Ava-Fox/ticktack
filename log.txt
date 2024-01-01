@@ -1,0 +1,46 @@
+TICK TACK TOE
+
+Two players take turns marking grid w/ their symbol
+Once a player gets three of their marks aligned across, above, or diagonally they win
+If no player gets three in a row, it's a tie
+
+     a   b   c
+     m | m | m 
+1   ___|___|___
+     m | m | m
+2   ___|___|___
+     m | m | m
+3      |   |
+
+- Utilize a dictionary to keep track of grid markings?
+
+player_1 {
+    mark: 'X',
+    turn: True,
+    winner: False,
+}
+
+grid = {
+    'a1': " ",
+    'a2': " ",
+    'a3': " ",
+    'b1': " ",
+    'b2': " ",
+    'b3': " ",
+    'c1': " ",
+    'c2': " ",
+    'c3': " "
+}
+
+def generate_grid():
+    """ function to generate grid each time w/ logged markings?? """
+   table = """
+         a   b   c
+         {grid['a1']} | {grid['a2']} | {grid['a3']} 
+    1   ___|___|___
+         {grid['b1']} | {grid['b2']} | {grid['b3']}
+    2   ___|___|___
+         {grid['c1']} | {grid['c2']} | {grid['c3']}
+    3      |   |
+    """
+    print(table)
