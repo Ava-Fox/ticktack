@@ -1,15 +1,9 @@
+from helpers import grid, generate_grid
+
 # Let player one choose X or O
 options = ['X', 'O']
 message = "Player 1, choose X or O"
-grid = """
-     a   b   c
-       |   |   
-1   ___|___|___
-       |   |
-2   ___|___|___
-       |   |
-3      |   |
-"""
+game_active = False
 
 while True:
     choice = input(f"{message}: ").upper()
@@ -24,33 +18,16 @@ for option in options:
         break
 
 print(f"Player 1: {player_1} \nPlayer 2: {player_2}")
+game_active = True
 
-grid = {
-    'a1': " ",
-    'a2': " ",
-    'a3': " ",
-    'b1': " ",
-    'b2': " ",
-    'b3': " ",
-    'c1': " ",
-    'c2': " ",
-    'c3': " "
-}
-
-def generate_grid():
-    """ function to generate grid each time w/ logged markings?? """
-    table = f"""
-         a   b   c
-         {grid['a1']} | {grid['b1']} | {grid['c1']} 
-    1   ___|___|___
-         {grid['a2']} | {grid['b2']} | {grid['c2']}
-    2   ___|___|___
-         {grid['a3']} | {grid['b3']} | {grid['c3']}
-    3      |   |
-    """
-    print(table)
-
-grid['b1'] = player_1
-grid['c3'] = player_2
-
+# Start Game
 generate_grid()
+while game_active:
+    # First, determine if there's already a winner (determine_winner function)
+        # If so, print the winner and exit game 
+    # Determine who's turn it is, then prompt them to make move
+    # Check to make sure player choice is in available grid options, if not reprompt
+        # if move in grid.keys():
+            # grid[move] = player
+    # Switch who's turn it is and generate updated grid
+    break
