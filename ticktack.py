@@ -4,17 +4,18 @@ from helpers import grid, generate_grid
 options = ['X', 'O']
 message = "Player 1, choose X or O"
 game_active = False
+# Player_1 is initialized to start game
 player_1 = {
     'mark': "",
+    'moves': [],
     'turn': True,
     'winner': False,
-    'moves': []
 }
 player_2 = {
     'mark': "",
+    'moves': [],
     'turn': False,
     'winner': False,
-    'moves': []
 }
 
 while True:
@@ -51,15 +52,28 @@ def determine_winner():
         ['c1', 'b2', 'a3']
     ]
     # List of players moves and see if they have any of these lists
-    pass
+    # Return player_1, player_2, tie or None
+    return 'player_1'
 
 generate_grid()
 while game_active:
     # First, determine if there's already a winner (determine_winner function)
-        # If so, print the winner and exit game 
+        # If so, print the winner and exit game
+    results = determine_winner()
+    if results: 
+        if results  == 'tie':
+            print(f"It's a tie!")
+        else:
+            print(f"{results} wins!") 
     # Determine who's turn it is, then prompt them to make move
     # Check to make sure player choice is in available grid options, if not reprompt
         # if move in grid.keys():
             # grid[move] = player
     # Switch who's turn it is and generate updated grid
-    break
+    play_again = input("Game Over! Play again? Y/N : ").title()
+    if play_again == 'Y':
+        game_active = True
+    else:
+        print("Goodbye!")
+        game_active = False
+
