@@ -1,4 +1,4 @@
-from helpers import grid, generate_grid
+from helpers import grid, winning_combinations, generate_grid
 
 # Let player one choose X or O
 options = ['X', 'O']
@@ -8,12 +8,14 @@ game_active = False
 player_1 = {
     'mark': "",
     'moves': [],
+    'name': "Player 1",
     'turn': True,
     'winner': False,
 }
 player_2 = {
     'mark': "",
-    'moves': [],
+    'moves': ['b1', 'c1', 'a1'],
+    'name': "Player 2",
     'turn': False,
     'winner': False,
 }
@@ -38,28 +40,31 @@ grid['a1'] = player_1['mark']
 
 def determine_winner():
     """ Determine if a player has three in a row """
-    winning_combinations = [
-        # Vertical
-        ['a1', 'a2', 'a3'],
-        ['b1', 'b2', 'b3'],
-        ['c1', 'c2', 'c3'],
-        # Horizontal
-        ['a1', 'b1', 'c1'],
-        ['a2', 'b2', 'c2'],
-        ['a3', 'b3', 'c3'],
-        # Diagonal
-        ['a1', 'b2', 'c3'],
-        ['c1', 'b2', 'a3']
-    ]
+    players = [player_1, player_2]
+    for player in players:
+        moves = player['moves']
+        if moves:
+            moves.sort()
+            if moves in winning_combinations:
+                player['winner'] = True
+                return player['name']
+            else:
+                continue
     # List of players moves and see if they have any of these lists
-    # Return player_1, player_2, tie or None
-    return 'player_1'
+    # Return player_1, player_2, or None
+    return None
+
+def determine_tie():
+    """If grid all filled and no winner, it's a tie"""
+    # Return True if tie, False if not
+    ...
 
 generate_grid()
 while game_active:
     # First, determine if there's already a winner (determine_winner function)
         # If so, print the winner and exit game
     results = determine_winner()
+    print(results)
     if results: 
         if results  == 'tie':
             print(f"It's a tie!")
