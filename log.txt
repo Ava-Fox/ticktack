@@ -48,3 +48,7 @@ def generate_grid():
 
 TODO: Eventually make a play_again function that will clear game data
       or end game. 
+
+BUG: Didn't catch win ['a1', 'b2', 'c3']
+     - if it's out of order or there's 'superfluous' data it doesn't track a win...
+     

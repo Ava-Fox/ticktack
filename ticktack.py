@@ -10,14 +10,12 @@ player_1 = {
     'moves': [],
     'name': "Player 1",
     'turn': True,
-    'winner': False,
 }
 player_2 = {
     'mark': "",
     'moves': [],
     'name': "Player 2",
     'turn': False,
-    'winner': False,
 }
 players = [player_1, player_2]
 while True:
@@ -32,7 +30,7 @@ for option in options:
         player_2['mark'] = option
         break
 
-print(f"Player 1: {player_1} \nPlayer 2: {player_2}")
+print(f"Player 1: {player_1['mark']} \nPlayer 2: {player_2['mark']}")
 game_active = True
 
 def change_turns():
@@ -42,11 +40,11 @@ def change_turns():
             player['turn'] = False
         else:
             player['turn'] = True
-        print(f"{player['name']} turn: {player['turn']}")
 
 def determine_winner():
     """ Determine if a player has three in a row """
-    players = [player_1, player_2]
+     # List of players moves and see if they have any of these lists
+    # Return player_1, player_2, or None
     for player in players:
         moves = player['moves']
         if moves:
@@ -54,16 +52,15 @@ def determine_winner():
             if moves in winning_combinations:
                 player['winner'] = True
                 return player['name']
-            else:
-                continue
-    # List of players moves and see if they have any of these lists
-    # Return player_1, player_2, or None
     return None
 
 def determine_tie():
     """If grid all filled and no winner, it's a tie"""
+    for thing in grid.values():
+        if thing == " ":
+            return False
     # Return True if tie, False if not
-    pass
+    return True
 
 # Start Game
 generate_grid()
@@ -71,11 +68,16 @@ while game_active:
     # First, determine if there's already a winner or tie
         # If so, print the winner and exit game
     results = determine_winner()
-    tie = determine_tie()
     if results: 
         print(f"{results} wins!") 
+        game_active = False
+        break
+    
+    tie = determine_tie()
     if tie:
         print("It's a tie!")
+        game_active = False
+        break
 
     # Determine who's turn it is, then prompt them to make move
     for player in players:
@@ -97,6 +99,7 @@ while game_active:
     change_turns()
     generate_grid()       
 
+print(player_1, "\n", player_2)
 # play_again = input("Game Over! Play again? Y/N : ").title()
 # if play_again == 'Y':
     # Clear user data and generate new grid
