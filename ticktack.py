@@ -14,7 +14,7 @@ player_1 = {
 }
 player_2 = {
     'mark': "",
-    'moves': ['b1', 'c1', 'a1'],
+    'moves': [],
     'name': "Player 2",
     'turn': False,
     'winner': False,
@@ -35,9 +35,6 @@ for option in options:
 print(f"Player 1: {player_1} \nPlayer 2: {player_2}")
 game_active = True
 
-# Start Game
-grid['a1'] = player_1['mark']
-
 def determine_winner():
     """ Determine if a player has three in a row """
     players = [player_1, player_2]
@@ -57,19 +54,20 @@ def determine_winner():
 def determine_tie():
     """If grid all filled and no winner, it's a tie"""
     # Return True if tie, False if not
-    ...
+    pass
 
+# Start Game
 generate_grid()
 while game_active:
-    # First, determine if there's already a winner (determine_winner function)
+    # First, determine if there's already a winner or tie
         # If so, print the winner and exit game
     results = determine_winner()
-    print(results)
+    tie = determine_tie()
     if results: 
-        if results  == 'tie':
-            print(f"It's a tie!")
-        else:
-            print(f"{results} wins!") 
+        print(f"{results} wins!") 
+    if tie:
+        print("It's a tie!")
+
     # Determine who's turn it is, then prompt them to make move
     # Check to make sure player choice is in available grid options, if not reprompt
         # if move in grid.keys():
@@ -77,8 +75,8 @@ while game_active:
     # Switch who's turn it is and generate updated grid
     play_again = input("Game Over! Play again? Y/N : ").title()
     if play_again == 'Y':
+        # Clear user data and generate new grid
         continue
     else:
         print("Goodbye!")
         game_active = False
-
