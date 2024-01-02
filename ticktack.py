@@ -72,7 +72,7 @@ while game_active:
     # Switch who's turn it is and generate updated grid
     play_again = input("Game Over! Play again? Y/N : ").title()
     if play_again == 'Y':
-        game_active = True
+        continue
     else:
         print("Goodbye!")
         game_active = False
