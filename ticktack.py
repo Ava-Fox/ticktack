@@ -41,7 +41,7 @@ def change_turns():
         else:
             player['turn'] = True
 
-def check_player_choice(move):
+def check_player_choice(move, turn):
     """Check to make sure player choice in available grid options, if not reprompt"""
     while True:
         if move in grid.keys() and grid[move] == " ":
@@ -69,24 +69,31 @@ def determine_winner():
 
 def determine_tie():
     """If grid all filled and no winner, it's a tie"""
-    for thing in grid.values():
-        if thing == " ":
+    for space in grid.values():
+        if space == " ":
             return False
     # Return True if tie, False if not
     return True
 
+def determine_turn():
+    """Check who's turn it is """
+    for player in players:
+        if player['turn'] == True:
+            turn = player
+            return turn
+        
 # Start Game
-
 while game_active:
-    # First, determine if there's already a winner or tie
-        # If so, print the winner and exit game
+    # Generate updated grid
     generate_grid()
+
+    # Determine if there's already a winner or tie
     results = determine_winner()
     if results: 
         print(f"{results} wins!") 
         game_active = False
         break
-    
+
     tie = determine_tie()
     if tie:
         print("It's a tie!")
@@ -94,17 +101,13 @@ while game_active:
         break
 
     # Determine who's turn it is
-    for player in players:
-        if player['turn'] == True:
-            turn = player
+    turn = determine_turn()
 
     # Prompt player to make choice, and check if it's a valid one
     move = input(f"{turn['name']}: ").lower()
-    check_player_choice(move)
+    check_player_choice(move, turn)
 
     # Switch who's turn it is    
     change_turns()      
 
 print(player_1, "\n", player_2)
-
-
