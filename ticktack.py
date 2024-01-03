@@ -2,7 +2,6 @@ from helpers import grid, winning_combinations, generate_grid
 
 # Let player one choose X or O
 options = ['X', 'O']
-message = "Player 1, choose X or O"
 game_active = False
 # Player_1 is initialized to start game
 player_1 = {
@@ -18,8 +17,10 @@ player_2 = {
     'turn': False,
 }
 players = [player_1, player_2]
+
+# Allow player 1 to choose their mark
 while True:
-    choice = input(f"{message}: ").upper()
+    choice = input(f"Player 1, choose X or O: ").upper()
     if choice in options:
         break
 
@@ -34,7 +35,7 @@ print(f"Player 1: {player_1['mark']} \nPlayer 2: {player_2['mark']}")
 game_active = True
 
 def change_turns():
-    """Change whose turn it is  """
+    """Change whose turn it is"""
     for player in players:
         if player['turn'] == True:
             player['turn'] = False
@@ -52,9 +53,24 @@ def check_player_choice(move, turn):
             print("Please enter valid move")
             move = input(f"{turn['name']}: ").lower()
 
+def determine_tie():
+    """If grid all filled and no winner, it's a tie"""
+    for space in grid.values():
+        if space == " ":
+            return False
+    # Return True if tie, False if not
+    return True
+
+def determine_turn():
+    """Check who's turn it is"""
+    for player in players:
+        if player['turn'] == True:
+            turn = player
+            return turn
+        
 def determine_winner():
-    """ Determine if a player has three in a row """
-     # List of players moves and see if they have any of these lists
+    """Determine if a player has three in a row"""
+    # List of players moves and see if they have any of these lists
     # Return player_1, player_2, or None
     # If player has any move that makes up winning combination, they win
 
@@ -67,37 +83,21 @@ def determine_winner():
                 return player['name']
     return None
 
-def determine_tie():
-    """If grid all filled and no winner, it's a tie"""
-    for space in grid.values():
-        if space == " ":
-            return False
-    # Return True if tie, False if not
-    return True
-
-def determine_turn():
-    """Check who's turn it is """
-    for player in players:
-        if player['turn'] == True:
-            turn = player
-            return turn
-        
 # Start Game
 while game_active:
     # Generate updated grid
     generate_grid()
 
-    # Determine if there's already a winner or tie
-    results = determine_winner()
-    if results: 
-        print(f"{results} wins!") 
-        game_active = False
+    # Determine if there's already a winner
+    winner = determine_winner()
+    if winner: 
+        print(f"{winner} wins!") 
         break
 
+    # ...Or already a tie
     tie = determine_tie()
     if tie:
         print("It's a tie!")
-        game_active = False
         break
 
     # Determine who's turn it is
@@ -110,4 +110,5 @@ while game_active:
     # Switch who's turn it is    
     change_turns()      
 
-print(player_1, "\n", player_2)
+print(player_1)
+print(player_2)
