@@ -21,7 +21,7 @@ winning_combinations = [
         ['a3', 'b3', 'c3'],
         # Diagonal
         ['a1', 'b2', 'c3'],
-        ['a3', 'b2', 'c1']
+        ['a3', 'b2', 'c1'],
     ]
 
 def generate_grid():

@@ -41,10 +41,23 @@ def change_turns():
         else:
             player['turn'] = True
 
+def check_player_choice(move):
+    """Check to make sure player choice in available grid options, if not reprompt"""
+    while True:
+        if move in grid.keys() and grid[move] == " ":
+            grid[move] = turn['mark']
+            turn['moves'].append(move)
+            break
+        else:
+            print("Please enter valid move")
+            move = input(f"{turn['name']}: ").lower()
+
 def determine_winner():
     """ Determine if a player has three in a row """
      # List of players moves and see if they have any of these lists
     # Return player_1, player_2, or None
+    # If player has any move that makes up winning combination, they win
+
     for player in players:
         moves = player['moves']
         if moves:
@@ -63,10 +76,11 @@ def determine_tie():
     return True
 
 # Start Game
-generate_grid()
+
 while game_active:
     # First, determine if there's already a winner or tie
         # If so, print the winner and exit game
+    generate_grid()
     results = determine_winner()
     if results: 
         print(f"{results} wins!") 
@@ -79,31 +93,18 @@ while game_active:
         game_active = False
         break
 
-    # Determine who's turn it is, then prompt them to make move
+    # Determine who's turn it is
     for player in players:
         if player['turn'] == True:
             turn = player
 
-    # Check to make sure player choice is in available grid options, if not reprompt
+    # Prompt player to make choice, and check if it's a valid one
     move = input(f"{turn['name']}: ").lower()
-    while True:
-        if move in grid.keys() and grid[move] == " ":
-            grid[move] = turn['mark']
-            turn['moves'].append(move)
-            break
-        else:
-            print("Please enter valid move")
-            move = input(f"{turn['name']}: ").lower()
-            
-    # Switch who's turn it is and generate updated grid    
-    change_turns()
-    generate_grid()       
+    check_player_choice(move)
+
+    # Switch who's turn it is    
+    change_turns()      
 
 print(player_1, "\n", player_2)
-# play_again = input("Game Over! Play again? Y/N : ").title()
-# if play_again == 'Y':
-    # Clear user data and generate new grid
-#     continue
-# else:
-#     print("Goodbye!")
-#     game_active = False
+
+
