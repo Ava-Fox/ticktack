@@ -69,4 +69,17 @@ BUG: Didn't catch win ['a1', 'b2', 'c3']
           - could count letters/numbers have in moves and if it has three of a 
           kind they win...
                - prob work great for horizontal/vertical wins but not diagonal
+
+     ORIGINAL DETERMINE_WINNER():
+          """Determine if a player has three in a row"""
+          # List of players moves and see if they have any of these lists
+          # Return player_1, player_2, or None
+          # If player has any move that makes up winning combination, they win
+          for player in players:
+               moves = player['moves']
+               if moves:
+                    moves.sort()
+                    if moves in winning_combinations:
+                         player['winner'] = True
+                         return player['name']
           

@@ -70,16 +70,28 @@ def determine_turn():
         
 def determine_winner():
     """Determine if a player has three in a row"""
-    # List of players moves and see if they have any of these lists
-    # Return player_1, player_2, or None
-    # If player has any move that makes up winning combination, they win
-
+    # Count how many of players move start w/ a/b/c and end w/ 1/2/3
+        # If any count = 3, then they have horizontal or vertical win
     for player in players:
         moves = player['moves']
         if moves:
-            moves.sort()
-            if moves in winning_combinations:
-                player['winner'] = True
+            a, b, c = 0, 0, 0
+            o, tw, th = 0, 0, 0
+            for move in moves:
+                if move[0] == 'a':
+                    a += 1
+                elif move[0] == 'b':
+                    b += 1
+                elif move[0] == 'c':
+                    c += 1
+                
+                if move[1] == '1':
+                    o += 1
+                elif move[1] == '2':
+                    tw += 1
+                elif move[1] == '3':
+                    th += 1
+            if a == 3 or b == 3 or c == 3 or o == 3 or tw == 3 or th == 3:
                 return player['name']
     return None
 
