@@ -1,4 +1,4 @@
-from helpers import grid, winning_combinations, generate_grid
+from helpers import grid, generate_grid
 
 # Let player one choose X or O
 options = ['X', 'O']
@@ -77,6 +77,8 @@ def determine_winner():
         if moves:
             a, b, c = 0, 0, 0
             o, tw, th = 0, 0, 0
+            diagonal_space = []
+            diagonal_wins = [['a1', 'b2', 'c3'], ['a3', 'b2', 'c1']]
             for move in moves:
                 if move[0] == 'a':
                     a += 1
@@ -91,8 +93,21 @@ def determine_winner():
                     tw += 1
                 elif move[1] == '3':
                     th += 1
+                
+                if move == 'a1' or move == 'a3' or move == 'b2' or move == 'c1' or move == 'c3':
+                    diagonal_space.append(move)
+
+            # Determine horizontal win
             if a == 3 or b == 3 or c == 3 or o == 3 or tw == 3 or th == 3:
                 return player['name']
+            
+            # Determine diagonal win
+            if diagonal_space:
+                diagonal_space.sort()
+                for win in diagonal_wins:
+                    if win == diagonal_space:
+                        return player['name']
+
     return None
 
 # Start Game
@@ -121,6 +136,3 @@ while game_active:
 
     # Switch who's turn it is    
     change_turns()      
-
-print(player_1)
-print(player_2)

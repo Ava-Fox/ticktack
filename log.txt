@@ -57,7 +57,7 @@ TODO: Eventually make a play_again function that will clear game data to restart
           #     print("Goodbye!")
           #     game_active = False
 
-BUG: Didn't catch win ['a1', 'b2', 'c3']
+FIXED BUG: Didn't catch win ['a1', 'b2', 'c3']
      - if it's out of order or there's 'superfluous' data it doesn't track a win...
      - because of alphabetical sort? If have extra move in there but comes first 
      alphebetically then maybe it doesn't register as though it has winning comb. 
