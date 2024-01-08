@@ -1,5 +1,3 @@
-from helpers import grid, generate_grid
-
 # Let player one choose X or O
 options = ['X', 'O']
 game_active = False
@@ -17,6 +15,18 @@ player_2 = {
     'turn': False,
 }
 players = [player_1, player_2]
+
+grid = {
+    'a1': " ",
+    'a2': " ",
+    'a3': " ",
+    'b1': " ",
+    'b2': " ",
+    'b3': " ",
+    'c1': " ",
+    'c2': " ",
+    'c3': " "
+}
 
 # Allow player 1 to choose their mark
 while True:
@@ -97,7 +107,7 @@ def determine_winner():
                 if move == 'a1' or move == 'a3' or move == 'b2' or move == 'c1' or move == 'c3':
                     diagonal_space.append(move)
 
-            # Determine horizontal win
+            # Determine horizontal/vertical win
             if a == 3 or b == 3 or c == 3 or o == 3 or tw == 3 or th == 3:
                 return player['name']
             
@@ -110,6 +120,19 @@ def determine_winner():
 
     return None
 
+def generate_grid():
+    """ Generate grid with logged moves """
+    table = f"""
+         a   b   c
+         {grid['a1']} | {grid['b1']} | {grid['c1']} 
+    1   ___|___|___
+         {grid['a2']} | {grid['b2']} | {grid['c2']}
+    2   ___|___|___
+         {grid['a3']} | {grid['b3']} | {grid['c3']}
+    3      |   |
+    """
+    print(table)
+    
 # Start Game
 while game_active:
     # Generate updated grid
@@ -135,4 +158,4 @@ while game_active:
     check_player_choice(move, turn)
 
     # Switch who's turn it is    
-    change_turns()      
+    change_turns()
