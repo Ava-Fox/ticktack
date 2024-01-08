@@ -1,7 +1,8 @@
 TICK TACK TOE
 
 Two players take turns marking grid w/ their symbol
-Once a player gets three of their marks aligned across, above, or diagonally they win
+Once a player gets three of their marks aligned across, above, or diagonally 
+they win
 If no player gets three in a row, it's a tie
 
      a   b   c
@@ -44,3 +45,41 @@ def generate_grid():
     3      |   |
     """
     print(table)
+
+
+TODO: Eventually make a play_again function that will clear game data to restart
+      or end game. 
+          # play_again = input("Game Over! Play again? Y/N : ").title()
+          # if play_again == 'Y':
+          # Clear user data and generate new grid
+          #     continue
+          # else:
+          #     print("Goodbye!")
+          #     game_active = False
+
+FIXED BUG: Didn't catch win ['a1', 'b2', 'c3']
+     - if it's out of order or there's 'superfluous' data it doesn't track a win...
+     - because of alphabetical sort? If have extra move in there but comes first 
+     alphebetically then maybe it doesn't register as though it has winning comb. 
+     because it's not perfectly aligned.
+     - Works the same way w/ horizontal and vertical wins... misses if there's 
+     another move.
+
+     Determine_Winner():
+          - could count letters/numbers have in moves and if it has three of a 
+          kind they win...
+               - prob work great for horizontal/vertical wins but not diagonal
+
+     ORIGINAL DETERMINE_WINNER():
+          """Determine if a player has three in a row"""
+          # List of players moves and see if they have any of these lists
+          # Return player_1, player_2, or None
+          # If player has any move that makes up winning combination, they win
+          for player in players:
+               moves = player['moves']
+               if moves:
+                    moves.sort()
+                    if moves in winning_combinations:
+                         player['winner'] = True
+                         return player['name']
+          
